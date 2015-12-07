@@ -19,6 +19,7 @@ function mochaPhantomJS(options) {
 
     return through.obj(function (file, enc, cb) {
         var args = [
+            sslProtocol(options.sslProtocol),
             scriptPath,
             toURI(file.path, options.mocha),
             options.reporter || 'spec',
@@ -105,6 +106,10 @@ function lookup(path, isExecutable) {
             return absPath;
         }
     }
+}
+
+function sslProtocol(value) {
+    return value ? '--ssl-protocol=' + value : '';
 }
 
 module.exports = mochaPhantomJS;
